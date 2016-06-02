@@ -31,3 +31,9 @@ html, body {
     line-height: 2em;
     font-size: 3em;
 }
+
+.errorMsg {
+    color: #FF7777;
+    font-size: 22px;
+    text-align: center;
+}
