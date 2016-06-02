@@ -1,4 +1,3 @@
-
 const AUTH_USER             = 'AUTH_USER'
 const UNAUTH_USER           = 'UNAUTH_USER'
 const FETCHING_USER         = 'FETCHING_USER'
