@@ -1,12 +1,19 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import { container, innerContainer } from './styles.css'
 import { Navigation } from 'components'
+import { connect } from 'react-redux'
+
 
 const Main = React.createClass({
+  propTypes: {
+    isAuthed: PropTypes.bool.isRequired
+  },
+
   render () {
+    console.log(this.props)
     return (
       <div className={container}>
-        <Navigation isAuthed={false} />
+        <Navigation isAuthed={this.props.isAuthed} />
         <div className={innerContainer}>
           {this.props.children}
         </div>
@@ -15,4 +22,6 @@ const Main = React.createClass({
   },
 })
 
-export default Main
+export default connect(
+  (state) => ({isAuthed: state.isAuthed})
+)(Main)

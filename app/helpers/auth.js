@@ -6,6 +6,7 @@ export default function auth () {
         avatar: 'http://123.as',
         uid: 'brookemitchell',
       })
+      /* reject('fuuuuuu')*/
     }, 1000)
   })
 }

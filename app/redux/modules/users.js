@@ -25,10 +25,11 @@ function fetchingUser (){
     type: FETCHING_USER,
   }
 }
-function fetchingUserFailure (){
+function fetchingUserFailure (err){
   return {
     type: FETCHING_USER_FAILURE,
-    error: 'Error fetching user.',
+    error: `Error fetching user: ${err}`
+    ,
   }
 }
 
@@ -41,14 +42,18 @@ function fetchingUserSuccess (uid, user, timestamp){
   }
 }
 export function fetchAndHandleAuthedUser () {
+  console.log(arguments)
+
   return function (dispatch) {
     dispatch(fetchingUser())
-
     auth().then((user) => {
       dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
       dispatch(authUser(user.uid))
+    }).catch((err) => {
+      dispatch(fetchingUserFailure (err))
     })
   }
+
 }
 
 const initialUserState = {
