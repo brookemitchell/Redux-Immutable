@@ -1,3 +1,5 @@
+import auth from 'helpers/auth'
+
 const AUTH_USER             = 'AUTH_USER'
 const UNAUTH_USER           = 'UNAUTH_USER'
 const FETCHING_USER         = 'FETCHING_USER'
@@ -5,37 +7,47 @@ const FETCHING_USER_FAILURE = 'FETCHING_USER_FAILURE'
 const FETCHING_USER_SUCCESS = 'FETCHING_USER_SUCCESS'
 
 // Users
-export function authUser (uid){
+function authUser (uid){
   return {
     type: AUTH_USER,
     uid,
   }
 }
 
-export function unAuthUser (){
+function unAuthUser (){
   return {
     type: UNAUTH_USER,
   }
 }
 
-export function fetchingUser (){
+function fetchingUser (){
   return {
     type: FETCHING_USER,
   }
 }
-export function fetchingUserFailure (){
+function fetchingUserFailure (){
   return {
     type: FETCHING_USER_FAILURE,
     error: 'Error fetching user.',
   }
 }
 
-export function fetchingUserSuccess (uid, user, timestamp){
+function fetchingUserSuccess (uid, user, timestamp){
   return {
     type: FETCHING_USER_SUCCESS,
     uid,
     user,
     timestamp,
+  }
+}
+export function fetchAndHandleAuthedUser () {
+  return function (dispatch) {
+    dispatch(fetchingUser())
+
+    auth().then((user) => {
+      dispatch(fetchingUserSuccess(user.uid, user, Date.now()))
+      dispatch(authUser(user.uid))
+    })
   }
 }
 
@@ -50,14 +62,14 @@ const initialUserState = {
 
 function user (state = initialUserState, action) {
   switch (action.type) {
-  case FETCHING_USER_SUCCESS :
-    return {
-      ...state,
-      info: action.user,
-      lastUpdated: action.timestamp,
-    }
+    case FETCHING_USER_SUCCESS :
+      return {
+        ...state,
+        info: action.user,
+        lastUpdated: action.timestamp,
+      }
     default :
-    return state
+      return state
   }
 }
 
@@ -70,43 +82,43 @@ const initialState = {
 
 export default function users (state = initialState, action) {
   switch (action.type) {
-  case AUTH_USER :
-    return {
-      ...state,
-      isAuthed: true,
-      authedId: action.uid,
-    }
-  case UNAUTH_USER :
-    return {
-      ...state,
-      isAuthed: false,
-      authedId: '',
-    }
-  case FETCHING_USER:
-    return {
-      ...state,
-      isFetching: true,
-    }
-  case FETCHING_USER_FAILURE:
-    return {
-      ...state,
-      isFetching: false,
-      error: action.error,
-    }
-  case FETCHING_USER_SUCCESS:
-    return action.user === null
-      ? {
+    case AUTH_USER :
+      return {
+        ...state,
+        isAuthed: true,
+        authedId: action.uid,
+      }
+    case UNAUTH_USER :
+      return {
+        ...state,
+        isAuthed: false,
+        authedId: '',
+      }
+    case FETCHING_USER:
+      return {
+        ...state,
+        isFetching: true,
+      }
+    case FETCHING_USER_FAILURE:
+      return {
         ...state,
         isFetching: false,
-        error: '',
+        error: action.error,
       }
-    : {
-      ...state,
-      isFetching: false,
-      error: '',
-      [action.uid]: user(state[action.uid], action),
-    }
+    case FETCHING_USER_SUCCESS:
+      return action.user === null
+           ? {
+             ...state,
+             isFetching: false,
+             error: '',
+           }
+           : {
+             ...state,
+             isFetching: false,
+             error: '',
+             [action.uid]: user(state[action.uid], action),
+           }
     default :
-    return state
+      return state
   }
 }
