@@ -16,7 +16,6 @@ const AuthenticateContainer = React.createClass({
   },
 
   handleAuth () {
-
     this.props.fetchingUser()
 
     return auth().then((user) => {
@@ -27,7 +26,6 @@ const AuthenticateContainer = React.createClass({
          )
 
       this.props.authUser(user.uid)
-
     })
   },
 
@@ -36,18 +34,15 @@ const AuthenticateContainer = React.createClass({
       <Authenticate
           isFetching={this.props.isFetching}
           error={this.props.error}
-          onAuth={this.handleAuth}
-      />
-
+          onAuth={this.handleAuth} />
     ) },
 })
 
 function mapStateToProps (state) {
   console.log('STATE', state)
-
   return {
     isFetching: state.isFetching,
-    error: state.error
+    error: state.error,
   }
 }
 
