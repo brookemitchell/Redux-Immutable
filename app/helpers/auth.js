@@ -10,3 +10,12 @@ export default function auth () {
     }, 1000)
   })
 }
+
+export function checkIfAuthed (store) {
+  //Ignore firebase
+  return store.getState().isAuthed
+}
+
+export function logout( ) {
+  console.log('Logged out')
+}
