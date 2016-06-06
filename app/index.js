@@ -1,13 +1,19 @@
 import ReadtDOM from 'react-dom'
 import React from 'react'
-import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import getRoutes from './config/routes.js'
-import users from 'redux/modules/users'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { checkIfAuthed } from 'helpers/auth.js'
+import * as reducers from 'redux/modules'
 
-const store = createStore(users, applyMiddleware(thunk))
+const store = createStore(
+  combineReducers(reducers),
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+)
 
 function checkAuth (nextState, replace) {
   const isAuthed = checkIfAuthed(store)
@@ -17,10 +23,8 @@ function checkAuth (nextState, replace) {
     if (isAuthed === true) {
       replace('/feed')
     }
-
   }
     else {
-      /* replace('/auth')*/
       if(isAuthed !== true) {
         replace('/auth')
       }

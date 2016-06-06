@@ -22,5 +22,5 @@ const Main = React.createClass({
 })
 
 export default connect(
-  (state) => ({isAuthed: state.isAuthed})
+  ({users}) => ({isAuthed: users.isAuthed})
 )(Main)

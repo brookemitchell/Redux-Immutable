@@ -10,12 +10,11 @@ export default function auth () {
 }
 
 export function checkIfAuthed (store) {
-  //Ignore firebase
   const authData = firebase.auth().currentUser
   if ( authData === null) {
     return false
   }
-  else if(store.getState().isAuthed === false) {
+  else if(store.getState().users.isAuthed === false) {
     const {uid} = authData
     const userInfo = formatuserInfo(authData)
     store.dispatch(authUser(uid))
