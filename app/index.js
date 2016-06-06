@@ -11,7 +11,6 @@ const store = createStore(users, applyMiddleware(thunk))
 
 function checkAuth (nextState, replace) {
   const isAuthed = checkIfAuthed(store)
-  console.log('isAuthed', isAuthed)
 
   const nextPathName = nextState.location.pathname
   if (nextPathName === '/' || nextPathName === '/auth') {

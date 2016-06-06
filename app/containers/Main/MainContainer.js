@@ -10,7 +10,6 @@ const Main = React.createClass({
   },
 
   render () {
-    console.log(this.props)
     return (
       <div className={container}>
         <Navigation isAuthed={this.props.isAuthed} />

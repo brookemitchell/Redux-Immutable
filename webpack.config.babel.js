@@ -26,7 +26,7 @@ const productionPlugin = new webpack.DefinePlugin({
 
 const base = {
   entry: [
-    PATHS.app
+    PATHS.app,
   ],
   output: {
     path: PATHS.build,

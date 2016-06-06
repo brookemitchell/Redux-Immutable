@@ -4,6 +4,7 @@
   "description": "<img src=\"http://www.reactjsprogram.com/images/reactjsprogram-500.png\" width=\"250\" align=\"right\">",
   "main": "index.js",
   "dependencies": {
+    "firebase": "^2.4.2",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   },
