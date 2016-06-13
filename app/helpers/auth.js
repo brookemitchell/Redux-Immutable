@@ -23,12 +23,16 @@ export function checkIfAuthed (store) {
   return true
 }
 
-export function logout( ) {
+export function logout () {
   return firebase.auth().signOut()
 }
 
 export function saveUser (user) {
-  return ref.database().ref(`users/${user.uid}`)
+  
+  return ref.child(`users/${user.uid}`)
     .set(user)
-    .then(() => user)
+    .then ( () => user)
+
+  console.log(user)
+  // return user
 }

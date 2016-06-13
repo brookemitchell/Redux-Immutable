@@ -7,8 +7,10 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux'
 import { checkIfAuthed } from 'helpers/auth.js'
 import * as reducers from 'redux/modules'
 
+const combinedReducers = combineReducers(reducers)
+
 const store = createStore(
-  combineReducers(reducers),
+  combinedReducers,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f

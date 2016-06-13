@@ -1,8 +1,8 @@
 {
   users: {
-    isAuthed,
     isFetching,
     error,
+    isAuthed,
     authedId,
     [uid]: {
       lastUpdated,
@@ -18,9 +18,11 @@
     isOpen
   },
   ducks: {
+    isFetching,
+    error,
     [duckId]: {
       lastUpdated,
-      info: {
+      info: 
         avatar,
         duckId,
         name,

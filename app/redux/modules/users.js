@@ -34,7 +34,7 @@ function fetchingUserFailure (err){
   }
 }
 
-function fetchingUserSuccess (uid, user, timestamp){
+export function fetchingUserSuccess (uid, user, timestamp){
   return {
     type: FETCHING_USER_SUCCESS,
     uid,
@@ -47,16 +47,13 @@ export function fetchAndHandleAuthedUser () {
   return function (dispatch) {
     dispatch(fetchingUser())
     return auth().then(({user}) => {
-      const userInfo = formatuserInfo( user )
+      const userInfo = formatuserInfo(user)
       return dispatch(fetchingUserSuccess(userInfo.uid, userInfo, Date.now()))
     })
-      .then( ({user}) => saveUser(user))
-      .then((user) =>  dispatch (authUser(user.uid)))
-      .catch((err) => {
-        dispatch(fetchingUserFailure (err))
-      })
+    .then(({user}) => saveUser(user))
+    .then((user) => dispatch(authUser(user.uid)))
+    .catch((err) => dispatch(fetchingUserFailure(err)))
   }
-
 }
 
 export function logoutAndUnAuth () {

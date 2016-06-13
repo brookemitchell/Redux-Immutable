@@ -6,5 +6,6 @@ var config = {
   databaseURL: "https://redux-immutable-8ac75.firebaseio.com",
   storageBucket: "redux-immutable-8ac75.appspot.com",
 };
-export const ref = firebase.initializeApp(config);
+const app = firebase.initializeApp(config);
 
+export const ref = firebase.database().ref()
