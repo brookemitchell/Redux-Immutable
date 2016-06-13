@@ -42,15 +42,14 @@ const initialUsersDuckState = {
 function usersDuck (state = initialUsersDuckState, action) {
   switch (action.type) {
     case ADD_SINGLE_USERS_DUCK:
-    return {
-      ...state,
-      duckIds: state.duckIds.concat([action.duckId]),
-    }
+      return {
+        ...state,
+        duckIds: state.duckIds.concat([action.duckId]),
+      }
     default:
-    return state
+      return state
   }
 }
-
 
 const initialState = {
   isFetching: true,
