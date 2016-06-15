@@ -4,4 +4,5 @@ export ducks      from './ducks.js'
 export usersDucks from './usersDucks.js'
 export feed       from './feed.js'
 export listeners  from './listeners.js'
-
+export usersLikes from './userLikes.js'
+export likeCount  from './likeCount.js'

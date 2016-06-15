@@ -12,7 +12,7 @@ export default function auth () {
 export function checkIfAuthed (store) {
   const authData = firebase.auth().currentUser
   if ( authData === null) {
-    return false
+    return true
   }
   else if(store.getState().users.isAuthed === false) {
     const {uid} = authData
@@ -28,11 +28,7 @@ export function logout () {
 }
 
 export function saveUser (user) {
-  
   return ref.child(`users/${user.uid}`)
     .set(user)
-    .then ( () => user)
-
-  console.log(user)
-  // return user
+    .then (() => user)
 }
