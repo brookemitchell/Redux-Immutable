@@ -36,6 +36,6 @@ function checkAuth (nextState, replace) {
 
 ReadtDOM.render(
   <Provider store={store}>
-  {getRoutes(checkAuth)}
+    {getRoutes(checkAuth)}
   </Provider>,
   document.getElementById('app'))
