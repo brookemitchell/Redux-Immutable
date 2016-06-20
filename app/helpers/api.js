@@ -37,3 +37,26 @@ export function listenToFeed (cb, errCb) {
     cb({feed, sortedIds})
   }, errCb)
 }
+
+export function fetchUsersLikes (uid) {
+  return ref.child(`userLikes/${uid}`).once('value')
+    .then(snapshot => snapshot.val() || {})
+}
+
+export function saveToUsersLkes (uid, duckId) {
+  return ref.child(`userLikes/${uid}/${duckId}`).set(true)
+}
+
+export function delteFromUsersLikes (uid, duckId) {
+  return ref.child(`userLikes/${uid}/${duckId}`).set(null)
+}
+
+export function incrementNumberOfLikes (duckId) {
+  return ref.child(`likeCount/${duckId}`)
+    .transaction((current = 0) => current + 1)
+}
+
+export function decrementNumberOfLikes (duckId) {
+  return ref.child(`likeCount/${duckId}`)
+    .transaction((current = 0) => current - 1)
+}
