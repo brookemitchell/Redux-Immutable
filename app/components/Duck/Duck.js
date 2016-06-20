@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react'
 
-export default function Duck (props) {
+export default function Duck ({duckId, ...props}) {
   console.log(props)
   return (
-      <div>DUCK</div>
+      <div> {duckId} - DUCK </div>
   )
 }

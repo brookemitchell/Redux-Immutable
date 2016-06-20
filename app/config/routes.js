@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Router, Route, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import {
   MainContainer,
   HomeContainer,
@@ -11,7 +11,7 @@ import {
 
 export default function getRoutes (checkAuth) {
   const routes = (
-    <Router history={browserHistory} >
+    <Router history={hashHistory} >
       <Route path='/' component={MainContainer} >
         <Route path='auth' component={Authenticate} onEnter={checkAuth}/>
         <Route path='feed' component={FeedContainer} onEnter={checkAuth}/>
